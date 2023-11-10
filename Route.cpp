@@ -27,9 +27,9 @@ Route::Route(string startDestination, string endDestination, string routeNumber)
 // конструктор копирования
 Route::Route(const Route &r)
 {
-    this->startDestination = startDestination;
-    this->endDestination = endDestination;
-    this->routeNumber = routeNumber;
+    this->startDestination = r.startDestination;
+    this->endDestination = r.endDestination;
+    this->routeNumber = r.routeNumber;
 
     cout << "Вызван конструктор копирования класса Route" << endl;
 }
@@ -85,6 +85,23 @@ void Route::Get()
     getline(cin, choice); // обнуляем поток ввода
 }
 
+// метод доступа к номеру маршрута
+string Route::GetNumber()
+{
+    return this->routeNumber;
+}
+
+// получить начальный пункт
+string Route::GetStart()
+{
+    return this->startDestination;
+}
+
+// получить конечный пункт
+string Route::GetEnd()
+{
+    return this->endDestination;
+}
 
 // метод вставки значения
 void Route::Set()
@@ -95,15 +112,74 @@ void Route::Set()
 // метод изменения значений
 void Route::Change()
 {
+    string choice;
 
+    try
+    {
+        cout << "Что хотите изменить?" <<
+                "1 - Начальный пункт" <<
+                "2 - Конечный пункт" <<
+                "3 - Номер маршрута" <<
+                "4 - Все поля" << endl;
+        cout << "Выбор: ";
+        cin >> choice;
+
+        for (int id = 0; id < choice.size(); id ++)
+        {
+            if (choice[id] >= 'A' && choice[id] <= 'Z') throw "Error";
+        }
+    }
+    catch(const char*mssg)
+    {
+        cout << "Неверный ввод" << endl;
+    }
+
+    getline(cin, choice); // обнуляем поток ввода
+
+    if (choice == "1")
+    {
+        cout << "Пункт назначения: ";
+        cin >> this->startDestination;
+    }
+    else if (choice == "2")
+    {
+        cout << "Номер поезда: ";
+        cin >> this->endDestination;
+    }
+    else if (choice == "3")
+    {
+        cout << "Время отправления: ";
+        cin >> this->routeNumber;
+    }
+    else
+    {
+        cout << "Ошибка выбора" << endl;
+        exit(0);
+    }
+
+    getline(cin, choice); // обнуляем поток ввода
 }
 
 ostream &operator<< (ostream &stream, Route r) // перегрузка оператора извлеченния
 {
+    stream << "Все поля класса:" << endl;
+    stream << r.startDestination << endl;
+    stream << r.endDestination << endl;
+    stream << r.routeNumber << endl;
 
+    return stream;
 }
 
-iostream &operator>> (istream &stream, Route &r) // перегрузка оператора вставки
+istream &operator>> (istream &stream, Route &r) // перегрузка оператора вставки
 {
-
+    cout << "Вставка значений:" << endl;
+    cout << "Начальный пункт: ";
+    stream >> r.startDestination;
+    cout << "Конечный пункт: ";
+    stream >> r.endDestination;
+    cout << "Номер маршрута: ";
+    stream >> r.routeNumber;
+    string buf;
+    getline(stream, buf); // обнуляем поток ввода
+    return stream;
 }
