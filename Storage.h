@@ -10,14 +10,14 @@ using namespace std;
 class Store
 {
 private:
-    Route **array;
-    int countElement;
+    Route **array; // массив хранения данных
+    int countElement; // подсчет кол-ва элементов в массиве
 
 public:
-    Store();
-    Store(int size);
-    Store(const Store &s);
-    ~Store();
+    Store(); // конструктор по умолчанию
+    Store(int size); // конструктор с параметром
+    Store(const Store &s); // конструктор копирования
+    ~Store(); // деструктор
 
     void SortedArray(); // сортировка после ввода
     void FindStart(); // поиск по пункту назначения

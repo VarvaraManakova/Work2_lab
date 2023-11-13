@@ -26,7 +26,7 @@ public:
     void Set(); // метод установки значения
     void Change(); // метод редактирования значений
 
-    friend ostream &operator<< (ostream &stream, Route r); // перегрузка оператора извлеченния
+    friend ostream &operator<< (ostream &stream, Route &r); // перегрузка оператора извлеченния
     friend istream &operator>> (istream &stream, Route &r); // перегрузка оператора вставки
 };
 
